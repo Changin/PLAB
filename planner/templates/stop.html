@@ -1,0 +1,165 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	
+<link rel="stylesheet" type="text/css" href="{% static 'css/stop.css' %}">
+
+</head>
+<body>
+
+
+<div class="stopwatch">
+  <div class="time">00:00:00:00</div>
+  <button class="start">Start</button>
+  <button class="pause">Pause</button>
+  <button class="reset">Reset</button>
+  <button class="lap">Lap</button>
+</div>
+
+<div class="lapsBox">
+  <ul class="laps">
+
+  </ul>
+  <button class="clear">Clear Laps</button>
+</div>
+
+
+
+<script>
+	
+(function() {
+  const BTN_START = document.querySelector(".start");
+  const BTN_PAUSE = document.querySelector(".pause");
+  const BTN_RESET = document.querySelector(".reset");
+  const BTN_LAP = document.querySelector(".lap");
+  const LIST_LAPS = document.querySelector(".laps");
+  const BTN_CLEAR = document.querySelector(".clear");
+  const TIME_DISPLAY = document.querySelector(".time");
+
+  let ms, s, m, h;
+
+  BTN_START.addEventListener("click", e => {
+    e.preventDefault();
+    if (SETTINGS.playing === false) {
+      SETTINGS.playing = true;
+      SETTINGS.timerId = window.requestAnimationFrame(startTimer);
+    }
+
+    //Resuming play
+    if (SETTINGS.progress !== 0) {
+      SETTINGS.start = performance.now() - SETTINGS.progress;
+    }
+  });
+
+  BTN_PAUSE.addEventListener("click", pauseTimer);
+  BTN_RESET.addEventListener("click", resetTimer);
+  BTN_LAP.addEventListener("click", recordLap);
+  BTN_CLEAR.addEventListener("click", e => {
+    e.preventDefault();
+    removeChildren(LIST_LAPS);
+    SETTINGS.laps = [];
+    updateLaps();
+  });
+
+  const SETTINGS = {
+    start: 0,
+    progress: 0,
+    currentTime: "",
+    playing: false,
+    timerId: null,
+    laps: [],
+    get milliseconds() {
+      return Math.trunc(this.progress);
+    }
+  };
+
+  updateLaps();
+
+  function startTimer(timestamp) {
+    if (!SETTINGS.start) SETTINGS.start = timestamp;
+    SETTINGS.progress = timestamp - SETTINGS.start;
+    SETTINGS.timerId = window.requestAnimationFrame(startTimer);
+    TIME_DISPLAY.textContent = getDisplay();
+  }
+
+  function pauseTimer() {
+    SETTINGS.playing = false;
+    window.cancelAnimationFrame(SETTINGS.timerId);
+  }
+
+  function resetTimer() {
+    // Increment SETTINGS.start with new delay time
+    SETTINGS.start += SETTINGS.progress;
+    SETTINGS.progress = 0.01;
+    TIME_DISPLAY.textContent = "00:00:00:00";
+  }
+
+  function recordLap() {
+    if (SETTINGS.playing === true) {
+      SETTINGS.laps.push(SETTINGS.currentTime);
+      updateLaps();
+    }
+  }
+
+  function updateLaps() {
+    removeChildren(LIST_LAPS);
+    let fragment = document.createDocumentFragment();
+    SETTINGS.laps.forEach(e => {
+      createEl({ tag: "li", content: e, parent: fragment, addToParent: 1 });
+    });
+    LIST_LAPS.appendChild(fragment);
+    BTN_CLEAR.style.display = SETTINGS.laps.length > 0 ? "block" : "none";
+  }
+
+  function getDisplay() {
+    ms = Math.trunc((SETTINGS.milliseconds / 10) % 100);
+    s = Math.trunc(SETTINGS.milliseconds / 1000)
+      .toString()
+      .padStart(2, "0");
+    h = parseInt(s / 3600);
+    s = s % 3600; // Purge extracted
+    m = Math.trunc(s / 60)
+      .toString()
+      .padStart(2, "0");
+    s = s % 60; // Purge extracted
+
+    SETTINGS.currentTime = `${formatTime(h)}:${formatTime(m)}:${formatTime(
+      s
+    )}:${formatTime(ms)}`;
+    return SETTINGS.currentTime;
+  }
+
+  function formatTime(time) {
+    return time.toString().padStart(2, "0");
+  }
+
+  function createEl({ parent, tag, content, classes, addToParent } = {}) {
+    let el = document.createElement(tag);
+    if (content) {
+      let txt = document.createTextNode(content);
+      el.appendChild(txt);
+    }
+    if (classes) {
+      el.setAttribute("class", classes);
+    }
+    if (addToParent) {
+      parent.appendChild(el);
+    }
+    return el;
+  }
+
+  function removeChildren(el) {
+    while (el.firstChild) {
+      el.removeChild(el.firstChild);
+    }
+  }
+})();
+
+
+</script>
+
+
+
+</body>
+</html>

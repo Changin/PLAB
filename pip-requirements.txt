@@ -1,0 +1,6 @@
+Package    Version
+---------- -------
+Django     2.1.4  
+pip        18.1   
+pytz       2018.7 
+setuptools 28.8.0 
