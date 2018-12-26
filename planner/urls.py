@@ -10,4 +10,5 @@ urlpatterns = [
     path('stop/', views.stopwatch, name='stopwatch'),
     path('today/', views.today, name='today'),
     path('calandar/', views.calandar, name='calandar'),
+    path('api/date/<int:year>/<int:month>/<int:day>',views.api_date, name='api_date'),
 ]

@@ -5,6 +5,13 @@
 	<title>calandar</title>
 </head>
 <body>
-	calandar page
+	calandar page : {{username}}
+	<hr style="width:100%; color: aqua;">
+	{% for schedule in schedules %}
+		<p>{{schedule}} : {{schedule.text}}</p>
+		<span style="color:#d46e58;;">{{ schedule.start_time }} ~ 
+        {{ schedule.end_time }}</span>
+        <hr style="width:100%; color: aqua;">
+	{% endfor %}
 </body>
 </html>

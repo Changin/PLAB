@@ -7,9 +7,10 @@ from django.shortcuts import render_to_response,redirect
 from django.template import RequestContext
 from .models import *
 from django.contrib.auth import authenticate, login, logout
-from .models import Schedule
 from django.contrib.auth.models import User
 import time
+from datetime import date
+from django.db.models import Q
 
 '''
 if not request.user.is_authenticated:
@@ -19,23 +20,56 @@ else:
        'password': request.user.password, 'is_authenticated': request.user.is_authenticated}
 '''
 
+#캘린더 api 리퀘스트
+@login_required
+def api_date(request, year, month, day):
+    #if request.method == "POST":
+        #요청한 날짜의 일정만 JsonResponse
+        me = User.objects.get(username=request.user.username)
+        schedules = Schedule.objects.filter(Q(author=me) & Q(start_time__year=year) & Q(start_time__month=month) & Q(start_time__day=day) )
+
+        titles = []
+        texts = []
+        start_times = []
+        end_times = []
+
+        for schedule in schedules:
+            titles.append(schedule.title)
+            texts.append(schedule.text)
+            start_times.append(schedule.start_time)
+            end_times.append(schedule.end_time)
+
+        res = {
+            'titles' : titles,
+            'texts' : texts,
+            'start_times' : start_times, 
+            'end_times' : end_times,
+        }
+
+        return JsonResponse(res)
+    #else:
+    #   return redirect('index')
+
 #캘린더
 @login_required
 def calandar(request):
-    me = request.user.username
+    me = User.objects.get(username=request.user.username)
     context = {
         'username' : me,
-        'schedules' : Scheduls.objects.filter(author=me)
+        'schedules' : Schedule.objects.filter(author=me).order_by('start_time')
     }
     return render(request, 'calandar.html', context)
 
 #오늘의 일정 보기
 @login_required
 def today(request):
-    #me = User.objects.get(username=request.user.username)
-    me = request.user.username
-    context = Schedule.objects.filter(author=me).order_by('start_time')
-    return render(request, 'today.html',{'schedules': context})
+    me = User.objects.get(username=request.user.username)
+    today = date.today()
+    context = {
+        'schedules' : Schedule.objects.filter(author=me).order_by('start_time'),
+        'today' : str(today.month) + "/" + str(today.day)
+    }
+    return render(request, 'today.html', context)
 
 #스톱워치
 @login_required
