@@ -1,0 +1,50 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Plab.</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/plab_new.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+</head>
+
+<body>
+	<h1> Plab. </h1>
+
+	{% if username %}
+	<p style="color: white; text-align: center; text-shadow: 0px 0px 15px white;">
+		<span class="c12">Welcome, {{username}}</span>
+	</p>
+	{% endif %}
+
+  	<h3>
+		<span class="c12">Web-based learning planner</span><br>
+		<span class="c13">Systematic Management and efficient learning plan</span><br>
+		<span class="c13">Learning planner with alarm function.</span><br><br><br>
+		{% if not username %}
+			<span class="c15 c13">
+				<a href="{% url 'login' %}" style="text-decoration: none; color: white">Login</a>
+			</span><br><br>
+		{% else %}
+			<span class="c15 c13">
+				<a href="{% url 'logout' %}" style="text-decoration: none; color: white">Logout</a>
+			</span><br><br>
+		{% endif %}
+	</h3>
+
+	<div class="menu-button"><i></i>
+		<a href="{% url 'calandar' %}" target="blank">
+			<img src="{% static 'images/calender.jpg' %}" class="small">
+		</a>
+		<a href="{% url 'stopwatch' %}" target="blank">
+			<img src="{% static 'images/stop.jpg' %}" class="small">
+		</a>
+		<a href="{% url 'index' %}" target="blank">
+			<img src="{% static 'images/home.png' %}" class="small">
+		</a>
+	</div>
+
+</body>
+</html>

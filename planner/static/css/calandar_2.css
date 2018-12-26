@@ -1,0 +1,374 @@
+html {
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1a1a1a;
+}
+
+.widget {
+  box-shadow: 0 4px 4px rgba(51, 51, 51, 0.5);
+  position: relative;
+  display: block;
+  width: 600px;
+  height: 300px;
+  margin: 50px auto;
+  font-size: 0;
+}
+.widget .calender {
+  display: inline-block;
+  position: relative;
+  float: left;
+  width: 300px;
+  height: 300px;
+  box-sizing: border-box;
+  background: #666666;
+}
+.widget .calender__month {
+  width: 300px;
+  height: 53.5714285714px;
+  background: #666666;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
+  border-bottom: 1px solid white;
+}
+.widget .calender__month--text {
+  color: white;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  font-family: Lato, sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.widget .calender__month--icon {
+  color: white;
+  position: absolute;
+  display: inline-block;
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: default;
+}
+.widget .calender__month--icon--left {
+  left: 37.5px;
+}
+.widget .calender__month--icon--right {
+  right: 37.5px;
+}
+.widget .calender__days {
+  display: inline-block;
+  width: 100%;
+  height: 246.4285714286px;
+  box-sizing: border-box;
+  padding: 25px 37.5px;
+}
+.widget .calender__cell {
+  display: inline-block;
+  float: left;
+  text-align: center;
+  width: 32.1428571429px;
+  height: 32.1428571429px;
+}
+.widget .calender__cell--d {
+  transition-duration: 0.3s;
+  box-sizing: border-box;
+  border: 1px solid #666666;
+}
+.widget .calender__cell--d.active {
+  background-color: white;
+  border: 1px solid white;
+}
+.widget .calender__cell--d:hover {
+  border: 1px solid white;
+}
+.widget .calender__text--dOfW {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  font-family: Lato, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+.widget .calender__text--d {
+  transition-duration: 0.3s;
+  margin: 0;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: default;
+  color: white;
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1rem;
+}
+.widget .calender__text--d.active {
+  color: #666666;
+  font-weight: 700;
+}
+.widget .schedule {
+  display: inline-block;
+  float: left;
+  width: 300px;
+  height: 300px;
+  box-sizing: border-box;
+  background: white;
+}
+.widget .schedule__title {
+  width: 300px;
+  height: 53.5714285714px;
+  position: relative;
+  padding: 0 18.75px;
+}
+.widget .schedule__title--text {
+  color: #333333;
+  position: relative;
+  margin: 0;
+  font-family: Lato, sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.widget .schedule__title--date {
+  color: rgba(51, 51, 51, 0.5);
+  position: absolute;
+  margin: 0;
+  left: 18.75px;
+  bottom: 0;
+  font-size: .7rem;
+  font-family: Lato, sans-serif;
+}
+.widget .schedule__taskWrapper {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  height: 246.4285714286px;
+  box-sizing: border-box;
+  padding: 15px 18.75px 18.75px;
+}
+.widget .schedule__formWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.widget .schedule__form {
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  border-radius: 15px;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  padding: 0px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: inline-block;
+  background-color: #666666;
+  box-shadow: 0 4px 4px rgba(51, 51, 51, 0.5);
+}
+.widget .schedule__form > * {
+  transition-duration: 0.5s;
+  opacity: 0;
+}
+.widget .schedule__form > *.show {
+  opacity: 1;
+}
+.widget .schedule__form.show {
+  width: 100%;
+  height: 100%;
+  right: 0px;
+  bottom: 0px;
+  padding: 20px;
+  border-radius: 0 0 15px 0;
+}
+.widget .schedule__add {
+  transition-duration: 0.5s;
+  position: absolute;
+  right: 18.75px;
+  bottom: 18.75px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  padding: calc((30px - 1.2rem)/2);
+  text-align: center;
+  background-color: #666666;
+  text-align: center;
+}
+.widget .schedule__add--icon {
+  position: relative;
+  color: white;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  user-select: none;
+  transform-origin: 50% 50%;
+  font-size: 1.2rem;
+  font-weight: 700;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin: 0 auto;
+  line-heihgt: 1.2rem;
+  cursor: default;
+}
+.widget .schedule__add--icon.active {
+  transform: rotate(45deg);
+}
+.widget .task__time {
+  display: block;
+  border: none;
+  border-bottom: 1px white solid;
+  width: 50px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0);
+}
+.widget .task__time:focus {
+  outline: none;
+}
+.widget .task__name {
+  display: block;
+  border: none;
+  border-bottom: 1px white solid;
+  width: 150px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0);
+}
+.widget .task__name:focus {
+  outline: none;
+}
+.widget .task__add {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-width: 0;
+  border-style: none;
+  border-radius: 0;
+  height: 22px;
+  width: 35px;
+  background-color: white;
+  color: #666666;
+  font-family: Lato, sans-serif;
+  font-size: .7rem;
+}
+
+.small {
+  width: auto; height: auto;
+  max-width: 20px;
+  max-height: 20px;
+  margin-top: 15px;
+}
+
+.menu-button {
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  transition: 0.4s;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+  border-radius: 50%;
+  background-color: white;
+  color: #FFFFFF;
+  font-size: 24px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26), 0 2px 10px 0 rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  box-shadow: 0 0 50px white;
+}
+.menu-button:hover {
+  background: gray;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.28), 0 4px 15px 0 rgba(0, 0, 0, 0.25);
+   box-shadow: 0 0 50px white;
+}
+.menu-button a {
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  transition: 0.4s;
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 50%;
+  color: #1a1a1a;
+  font-size: 24px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26), 0 2px 10px 0 rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+}
+
+.menu-button a:nth-child(2) {
+  -webkit-transition-delay: 0.3s;
+  -moz-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  background:#1a1a1a;
+}
+.menu-button a:nth-child(3) {
+  -webkit-transition-delay: 0.4s;
+  -moz-transition-delay: 0.4s;
+  transition-delay: 0.4s;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  background: #1a1a1a;
+}
+.menu-button a:nth-child(4) {
+  -webkit-transition-delay: 0.5s;
+  -moz-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  background: #1a1a1a;
+}
+.menu-button:hover a {
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+}
+.menu-button:hover a:nth-child(2) {
+  right: 80px;
+  bottom: 0px;
+}
+.menu-button:hover a:nth-child(2):hover {
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  transition-delay: 0s;
+  background: black;
+}
+.menu-button:hover a:nth-child(3) {
+  right: 65px;
+  bottom: 65px;
+}
+.menu-button:hover a:nth-child(3):hover {
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  transition-delay: 0s;
+  background: black;
+}
+.menu-button:hover a:nth-child(4) {
+  right: 0px;
+  bottom: 80px;
+}
+.menu-button:hover a:nth-child(4):hover {
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  transition-delay: 0s;
+  background: black;
+}

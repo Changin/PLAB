@@ -1,9 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.http import *
-from django.shortcuts import render_to_response,redirect
 from django.template import RequestContext
 from .models import *
 from django.contrib.auth import authenticate, login, logout
@@ -19,6 +18,11 @@ else:
     data = {'last_login': request.user.last_login, 'username': request.user.username,
        'password': request.user.password, 'is_authenticated': request.user.is_authenticated}
 '''
+
+#일정 등록
+@login_required
+def write(request):
+    pass
 
 #캘린더 api 리퀘스트
 @login_required
@@ -58,18 +62,7 @@ def calandar(request):
         'username' : me,
         'schedules' : Schedule.objects.filter(author=me).order_by('start_time')
     }
-    return render(request, 'calandar.html', context)
-
-#오늘의 일정 보기
-@login_required
-def today(request):
-    me = User.objects.get(username=request.user.username)
-    today = date.today()
-    context = {
-        'schedules' : Schedule.objects.filter(author=me).order_by('start_time'),
-        'today' : str(today.month) + "/" + str(today.day)
-    }
-    return render(request, 'today.html', context)
+    return render(request, 'calandar_2.html', context)
 
 #스톱워치
 @login_required
@@ -86,7 +79,7 @@ def indexView(request):
         'username' : username
     }
 
-    return render(request, 'plap.html', context)
+    return render(request, 'plab_new.html', context)
 
 #로그인 화면
 def login_user(request):

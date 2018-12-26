@@ -1,0 +1,350 @@
+$white: hsla(0, 0%, 100%, 1);
+$white50op: hsla(0, 0%, 100%, .5);
+$lGrey: hsla(0, 0%, 95%, 1);
+$grey: hsla(0, 0%, 40%, 1);
+$grey70op: hsla(0, 0%, 40%, .7);
+$black: hsla(0, 0%, 20%, 1);
+$black50op: hsla(0, 0%, 20%, .5);
+$black20op: hsla(0, 0%, 20%, .5);
+$pColor: hsla(339, 100%, 50%, 1);
+$pColor20op: hsla(339, 100%, 50%, .2);
+$bgColor: hsla(71, 58%, 64%, 1);
+
+$pFont: Lato, sans-serif;
+
+@mixin e($element) {
+    &__#{$element} {
+        @content;
+    }
+}
+
+@mixin m($modifier) {
+    &--#{$modifier} {
+        @content;
+    }
+}
+
+@mixin dropshadow {
+  box-shadow: 0 4px 4px $black50op;
+}
+
+@mixin transition($duration) {
+  transition-duration: $duration;
+}
+
+$side: 300px;
+
+html {
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $lGrey;
+}
+
+.widget {
+  @include dropshadow;
+  position: relative;
+  display: block;
+  width: 2 * $side;
+  height: $side;
+  margin: 50px auto;
+  font: {
+    size: 0;
+  }
+  .calender {
+    display: inline-block;
+    position: relative;
+    float: left;
+    width: $side;
+    height: $side;
+    box-sizing: border-box;
+    background: $pColor;
+    @include e('month') {
+      width: $side;
+      height: $side/8 + ($side - $side/4)/14;
+      background: $pColor;
+      text-align: center;
+      position: relative;
+      box-sizing: border-box;
+      border-bottom: 1px solid $white;
+      @include m('text') {
+        color: $white;
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        font: {
+          family: $pFont;
+          weight: 700;
+          size: 1.2rem;
+        }
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      @include m('icon') {
+        color: $white;
+        position: absolute;
+        display: inline-block;
+        margin: 0;
+        font: {
+          weight: 700;
+          size: 1.2rem;
+        }
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: default;
+        @include m('left') {
+          left: $side/8;
+        }
+        @include m('right') {
+          right: $side/8;
+        }
+      }
+    }
+    
+    @include e('days') {
+      display: inline-block;
+      width: 100%;
+      height: $side - ($side/8 + ($side - $side/4)/14);
+      box-sizing: border-box;
+      padding: $side/12 $side/8;
+    }
+    
+    @include e('cell') {
+      display: inline-block;
+      float: left;
+      text-align: center;
+      width: ($side - $side/4)/7;
+      height: ($side - $side/4)/7;
+      @include m('dOfW'){
+      }
+      @include m('d'){
+        @include transition(.3s);
+        box-sizing: border-box;
+        border: 1px solid $pColor;
+        // border-radius: 50%;
+        &.active {
+          // border: 1px solid white;
+          background-color: $white;
+          border: 1px solid white;
+        }
+        &:hover {
+          border: 1px solid white;
+        }
+      }
+    }
+    @include e('text') {
+      @include m('dOfW'){
+        margin: 0;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $white;
+        font: {
+          family: $pFont;
+          weight: 700;
+          size: 1rem;
+        }
+        line-height: 1rem;
+      }
+      @include m('d'){
+        @include transition(.3s);
+        margin: 0;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: default;
+        color: $white;
+        font: {
+          family: $pFont;
+          weight: 300;
+          size: 1rem;
+        }
+        line-height: 1rem;
+        &.active {
+          color: $pColor;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+  
+  .schedule {
+    display: inline-block;
+    float: left;
+    width: $side;
+    height: $side;
+    box-sizing: border-box;
+    // padding: $side/8;
+    background: $white;
+    @include e('title') {
+      width: $side;
+      height: $side/8 + ($side - $side/4)/14;
+      // background: $white;
+      // text-align: center;
+      position: relative;
+      padding: 0 $side/16;
+      // position: relative;
+      @include m('text'){
+        color: $black;
+        position: relative;
+        margin: 0;
+        font: {
+          family: $pFont;
+          weight: 700;
+          size: 1.2rem;
+        }
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      @include m('date') {
+        color: $black50op;
+        position: absolute;
+        margin: 0;
+        left: $side/16;
+        bottom: 0;
+        font: {
+          size: .7rem;
+          family: $pFont;
+        }
+      }
+    }
+    
+    @include e('taskWrapper') {
+      display: inline-block;
+      position: relative;
+      width: 100%;
+      height: $side - ($side/8 + ($side - $side/4)/14);
+      box-sizing: border-box;
+      padding: $side/20 $side/16 $side/16;
+    }
+    
+    @include e('formWrapper') {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    
+    @include e('form') {
+      @include transition(.5s);
+      transition-timing-function: ease;
+      border-radius: 15px;
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      padding: 0px;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      display: inline-block;
+      background-color: $pColor;
+      @include dropshadow;
+      
+      > * {
+        @include transition(.5s);
+        opacity: 0;
+        &.show {
+          opacity: 1;
+        }
+      }
+
+      &.show {
+        width: 100%;
+        height: 100%;
+        right: 0px;
+        bottom: 0px;
+        padding: 20px;
+        border-radius: 0 0 15px 0;
+      }
+    }
+    
+    @include e('add') {
+      @include transition(.5s);
+      position: absolute;
+      right: $side/16;
+      bottom: $side/16;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      padding: calc((30px - 1.2rem)/2);
+      text-align: center;
+      background: {
+        color: $pColor;
+      }
+      text-align: center;
+      @include m('icon') {
+        position: relative;
+        color: $white;
+        @include transition(.5s);
+        transition-timing-function: ease;
+        user-select: none;
+        transform-origin: 50% 50%;
+        font: {
+          size: 1.2rem;
+          weight: 700;
+        }
+        width: 1.2rem;
+        height: 1.2rem;
+        margin: 0 auto;
+        line-heihgt: 1.2rem;
+        cursor: default;
+        &.active {
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+  
+  .task {
+    @include e('time') {
+      display: block;
+      border: none;
+      border-bottom: 1px $white solid;
+      width: 50px;
+      color: $white;
+      background: {
+        color: hsla(0, 0, 0, 0);
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    @include e('name') {
+      display: block;
+      border: none;
+      border-bottom: 1px $white solid;
+      width: 150px;
+      color: $white;
+      background: {
+        color: hsla(0, 0, 0, 0);
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    @include e('add') {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border: {
+        width: 0;
+        style: none;
+        radius: 0;
+      }
+      height: 22px;
+      width: 35px;
+      background: {
+        color: $white;
+      }
+      color: $pColor;
+      font: {
+        family: $pFont;
+        size: .7rem;
+      }
+    }
+  }
+}

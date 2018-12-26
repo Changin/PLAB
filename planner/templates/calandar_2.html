@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calender</title>
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/calandar_2.css' %}">
+</head>
+
+<body>
+  <div class = "widget">
+  <div class = "calender">
+    <div class = "calender__month">
+      <i class="material-icons calender__month--icon calender__month--icon--left">keyboard_arrow_left</i>
+      <h2 class = "calender__month--text"></h2>
+      <i class="material-icons calender__month--icon calender__month--icon--right">keyboard_arrow_right</i>
+    </div>
+    <div class = "calender__days">
+      <div class = "calender__cell calender__cell--dOfW">
+        <p class = "calender__text--dOfW">S</p>
+      </div>
+      <div class = "calender__cell calender__cell--dOfW">
+        <p class = "calender__text--dOfW">M</p>
+      </div>
+      <div class = "calender__cell calender__cell--dOfW">
+        <p class = "calender__text--dOfW">T</p>
+      </div>
+      <div class = "calender__cell calender__cell--dOfW">
+        <p class = "calender__text--dOfW">W</p>
+      </div>
+      <div class = "calender__cell calender__cell--dOfW">
+        <p class = "calender__text--dOfW">T</p>
+      </div>
+      <div class = "calender__cell calender__cell--dOfW">
+        <p class = "calender__text--dOfW">F</p>
+      </div>
+      <div class = "calender__cell calender__cell--dOfW">
+        <p class = "calender__text--dOfW">S</p>
+      </div>
+    </div>
+  </div>
+  <div class = "schedule">
+    <div class = "schedule__title">
+      <h2 class = "schedule__title--text">Schedule</h2>
+      <p class = "schedule__title--date"></p>
+    </div>
+    <div class = "schedule__taskWrapper">
+<!--       <div class = "task">
+        <input class = "task__time" type = "text">
+        <input class = "task__name" type = "text">
+      </div> -->
+      <div class = "schedule__formWrapper">
+        <div class = "schedule__form">
+          <div class = "schedule__">
+            <h4>Time</h4>
+            <input class = "task__time" type = "text">
+          </div>
+          <input class = "task__name" type = "text">
+          <button class = "task__add" type = "button">Add</button>
+        </div>
+      </div>
+      <div class = "schedule__add" onclick = "addTask(this)">
+        <i class="material-icons schedule__add--icon">add</i>
+      </div>
+    </div>
+    <div>
+    </div>
+  </div>
+</div>
+
+  <div class="menu-button"><i class="zmdi zmdi-share"></i>
+    <a href="{% url 'calandar' %}" target="blank">
+      <img src="{% static 'images/calender.jpg' %}" class="small">
+    </a>
+    <a href="{% url 'stopwatch' %}" target="blank">
+      <img src="{% static 'images/stop.jpg' %}" class="small">
+    </a>
+    <a href="{% url 'index' %}" target="blank">
+      <img src="{% static 'images/home.png' %}" class="small">
+    </a>
+  </div>
+
+<script  src="{% static 'js/calandar_2.js' %}"></script>
+
+</body>
+
+</html>
