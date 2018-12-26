@@ -9,6 +9,7 @@ from .models import *
 from django.contrib.auth import authenticate, login, logout
 from .models import Schedule
 from django.contrib.auth.models import User
+import time
 
 '''
 if not request.user.is_authenticated:
@@ -18,10 +19,21 @@ else:
        'password': request.user.password, 'is_authenticated': request.user.is_authenticated}
 '''
 
+#캘린더
+@login_required
+def calandar(request):
+    me = request.user.username
+    context = {
+        'username' : me,
+        'schedules' : Scheduls.objects.filter(author=me)
+    }
+    return render(request, 'calandar.html', context)
+
 #오늘의 일정 보기
 @login_required
 def today(request):
-    me = User.objects.get(username=request.user.username)
+    #me = User.objects.get(username=request.user.username)
+    me = request.user.username
     context = Schedule.objects.filter(author=me).order_by('start_time')
     return render(request, 'today.html',{'schedules': context})
 
