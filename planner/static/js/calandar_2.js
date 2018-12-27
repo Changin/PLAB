@@ -3,6 +3,8 @@ var today = date.getDate();
 var todayDOfW = date.getUTCDay();
 var month = date.getMonth();
 var year = date.getFullYear();
+var titlesText = [];
+var startTimeText = [];
 
 var months = [
     "January",
@@ -144,6 +146,62 @@ function togContent(elem, pos) {
 
 // var newEl = scheduleWrapper.createElement('p');
 
+
+var alarmTimer = null;
+  var alarmSet;
+  var hour;
+  var min;
+    
+    function setAlarm()   { alarmSet = true;  }
+  function clearAlarm() { alarmSet = false; }
+  function initAlarm() {
+    if (alarmTimer!=null)clearInterval(alarmTimer);
+    var nowTime = new Date();
+    clearAlarm();
+    setAlarm();
+    alarmTimer=setInterval("countTime()",1000);
+  }
+  function matchH() {
+    var nowTime = new Date();
+    return (nowTime.getHours() == hour); 
+  }
+  function matchM() {
+    var nowTime = new Date(); 
+    return (nowTime.getMinutes() == min); 
+  }
+  function matchS() {
+    var nowTime = new Date(); 
+    return (nowTime.getSeconds() == 1); 
+  }
+  function countTime() {
+    var nowTime = new Date();
+    for (i=0;i<time_tb.length;i++){
+      let hour = time_tb[i][0] 
+      let min = time_tb[i][1]
+      let arg = titlesText[i]
+      if (matchH() && matchM() && matchS()) {
+        alert(arg+"를 시작할 시간입니다.");
+      }
+    }
+  }
+  function hyom(){
+      let time_tb = new Array(); 
+      asdf = ["1시 5분","2시 7분"];
+        for(i = 0;i<startTimeText.length;i++){
+          sp = startTimeText[i].split("시 ")
+          sp[1] = sp[1].replace("분", "")
+          time_tb[i] = sp
+      }
+        document.write(time_tb[0][0])
+        initAlarm()
+    }
+
+
+
+
+
+
+
 onload = function () {
   let currentURL = location.protocol + "//" + location.host;
   let scheduleWrapper = document.querySelector(".schedule__formWrapper");
@@ -156,9 +214,6 @@ onload = function () {
             console.log("asshole");
             
             let dayText = day.textContent;
-
-            let titlesText = [];
-            let startTimeText = [];
             let endTimeText = [];
             let contentsText = [];
 
@@ -213,4 +268,5 @@ onload = function () {
             */
         })
     }
+    hyom()
 }
