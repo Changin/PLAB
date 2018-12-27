@@ -26,7 +26,7 @@ body {
 .form {
   z-index: 15;
   position: relative;
-  background:  skyblue;
+  background:  #666666;
   width: 600px;
   border-radius: 4px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
@@ -62,7 +62,7 @@ body {
   left: 50%;
   width: 30px;
   height: 4px;
-  background: purple;
+  background: #1a1a1a;
   -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
@@ -141,7 +141,7 @@ body {
 }
 .form-group button {
   outline: none;
-  background: #4285F4;
+  background: #1a1a1a;
   width: 100%;
   border: 0;
   border-radius: 4px;
@@ -170,7 +170,7 @@ body {
   margin: 0 10px 0 0;
 }
 .form-group .form-recovery {
-  color: #4285F4;
+  color: white;
   font-size: 12px;
   text-decoration: none;
 }
@@ -196,7 +196,7 @@ body {
   position: absolute;
   top: 0;
   left: 95%;
-  background: aqua;
+  background: #1a1a1a;
   width: 100%;
   min-height: 100%;
   padding: 60px calc(10% + 60px) 60px 60px;
@@ -239,7 +239,7 @@ body {
 }
 .form-header h1 {
   padding: 4px 0;
-  color: #4285F4;
+  color: white;
   font-size: 24px;
   font-weight: 700;
   text-transform: uppercase;
@@ -268,7 +268,7 @@ body {
   margin: 20px auto 100px;
 }
 .pen-footer a {
-  color:purple;
+  color:#1a1a1a;
   font-size: 12px;
   text-decoration: none;
   text-shadow: 1px 2px 0 rgba(0, 0, 0, 0.1);

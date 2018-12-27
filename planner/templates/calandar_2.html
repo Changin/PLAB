@@ -62,9 +62,11 @@
           <button class = "task__add" type = "button">Add</button>
         </div>
       </div>
-      <div class = "schedule__add" onclick = "addTask(this)">
-        <i class="material-icons schedule__add--icon">add</i>
-      </div>
+      <a href="{% url 'write' %}">
+        <div class = "schedule__add">
+          <i class="material-icons schedule__add--icon">add</i>
+        </div>
+      </a>
     </div>
     <div>
     </div>
