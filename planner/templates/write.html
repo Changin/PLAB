@@ -1,0 +1,17 @@
+{% load static %}
+</!DOCTYPE html>
+<html>
+<head>
+	<title>write</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/add.css' %}">
+</head>
+<body>
+{% block content %}
+    <h1>New schedule</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,36 @@
+body
+{
+	background-color: #1a1a1a;
+	color: white;
+	text-shadow: 0 0 50px white;
+	text-align: center;
+}
+
+label{
+	text-shadow: 0 0 0px;
+}
+
+.box{
+
+	background-color: #14151a; 
+	color: white;
+
+}
+
+input{
+	background-color: #666666;
+	border: 0px;
+	color: white;
+}
+
+textarea{
+	background-color: #666666;
+	border: 0px;
+	color: white;
+}
+
+button.save.btn.btn-default{
+	background-color: #666666;
+	border: 0px;
+	color:white;
+}

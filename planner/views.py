@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 import time
 from datetime import date
 from django.db.models import Q
+from .forms import ScheduleForm
 
 '''
 if not request.user.is_authenticated:
@@ -22,7 +23,17 @@ else:
 #일정 등록
 @login_required
 def write(request):
-    pass
+    if request.method == "POST":
+        form = ScheduleForm(request.POST)
+        if form.is_valid():
+            schedule = form.save(commit=False)
+            schedule.author = request.user
+            schedule.published_date = timezone.now()
+            schedule.save()
+            return redirect('calandar')
+    else:
+        form = ScheduleForm()
+    return render(request, 'write.html', {'form' : form})
 
 #캘린더 api 리퀘스트
 @login_required
@@ -40,8 +51,8 @@ def api_date(request, year, month, day):
         for schedule in schedules:
             titles.append(schedule.title)
             texts.append(schedule.text)
-            start_times.append(schedule.start_time)
-            end_times.append(schedule.end_time)
+            start_times.append(str(schedule.start_time.hour) + "시 " + str(schedule.start_time.minute) +"분")
+            end_times.append(str(schedule.end_time.hour) + "시 " + str(schedule.end_time.minute)+"분")
 
         res = {
             'titles' : titles,

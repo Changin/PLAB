@@ -188,10 +188,10 @@ onload = function () {
                     
                     console.log(myJSON.titles[i]);
                   
-                    document.querySelector(".schedule__formWrapper").innerHTML += "<b># " + titlesText[i] + "</b>";
-                    document.querySelector(".schedule__formWrapper").innerHTML += "<span class='time'>→" + startTimeText[i] + "<br>";
-                    document.querySelector(".schedule__formWrapper").innerHTML += "←" + endTimeText[i] + "</span><br>";
-                    document.querySelector(".schedule__formWrapper").innerHTML += "=" + contentsText[i] + "<hr>";
+                    document.querySelector(".schedule__formWrapper").innerHTML += "<b># " + titlesText[i] + "</b><br/>";
+                    document.querySelector(".schedule__formWrapper").innerHTML += "<span class='time'>" + startTimeText[i] + " ~ " + "</span>";
+                    document.querySelector(".schedule__formWrapper").innerHTML += "<span class='time'>" + endTimeText[i] + "</span><br>";
+                    document.querySelector(".schedule__formWrapper").innerHTML += contentsText[i] + "<hr style=\"width: 100%; color: aqua;\">";
 
                     // var newEl = document.createElement('p');
                     // newEl.appendChild(document.createTextNode(titlesText[i]));
