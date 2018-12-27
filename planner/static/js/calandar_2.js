@@ -197,7 +197,7 @@ onload = function () {
                     // newEl.appendChild(document.createTextNode(titlesText[i]));
                     // scheduleWrapper.appendChild(newEl);
                 }
-                
+                //알림기능 구현
             })
             /*
             setTimeout(3000);
